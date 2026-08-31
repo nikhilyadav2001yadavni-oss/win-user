@@ -13,6 +13,7 @@ import { SearchDialog } from "./_components/header/search-dialog";
 import { ThemeSwitcher } from "./_components/header/theme-switcher";
 import { UserDetailsFetcher } from "@/components/UserDetailsFetcher";
 import { Notifications } from "./_components/header/notifications";
+import { ActivityMarquee } from "@/components/activity-marquee";
 
 export default async function Layout({ children }: Readonly<{ children: ReactNode }>) {
   const cookieStore = await cookies();
@@ -72,6 +73,7 @@ export default async function Layout({ children }: Readonly<{ children: ReactNod
         <div className="min-h-0 min-w-0 flex-1 overflow-x-hidden p-4 has-data-[content-padding=false]:p-0 md:p-6 md:has-data-[content-padding=false]:p-0">
           {children}
         </div>
+        <ActivityMarquee />
       </SidebarInset>
     </SidebarProvider>
   );

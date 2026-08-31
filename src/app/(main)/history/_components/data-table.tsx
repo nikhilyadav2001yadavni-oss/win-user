@@ -23,6 +23,7 @@ type DataTableProps = {
   setJoinedDateFilter: (joinedDateFilter: string) => void;
   searchQuery: string;
   setSearchQuery: (searchQuery: string) => void;
+  type?: string;
 };
 export function DataTable({
   data,
@@ -39,22 +40,25 @@ export function DataTable({
   setJoinedDateFilter,
   searchQuery,
   setSearchQuery,
+  type,
 }: DataTableProps) {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="leading-none">Transactions History</CardTitle>
         <CardDescription>Recent transactions with status, amount, and date.</CardDescription>
+        {type !== "home" && (
         <CardAction>
           <Button variant="outline" size="sm">
             <Download />
             Export
           </Button>
         </CardAction>
+        )}
       </CardHeader>
 
       <CardContent className="pt-0 space-y-4">
-
+        {type !== "home" && (
         <Filters 
         statusFilter={statusFilter}
         setStatusFilter={setStatusFilter}
@@ -63,6 +67,7 @@ export function DataTable({
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         />
+        )}
 
         <DepositTable
             loading={loading}
@@ -70,6 +75,7 @@ export function DataTable({
             page={page}
             limit={limit}
           />
+          {type !== "home" && (
           <Pagination
           page={page}
           totalPages={totalPages}
@@ -78,6 +84,7 @@ export function DataTable({
           onPageChange={(newPage) => { setPage(newPage); }}
           onLimitChange={(newLimit) => { setLimit(newLimit); }}
         />
+            )}
       </CardContent>
     </Card>
   );

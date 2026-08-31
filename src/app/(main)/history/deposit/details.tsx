@@ -268,7 +268,7 @@ export const DepositDetails = ({
                             </div>
 
                             {/* Addresses */}
-                            {transaction.category !== "GAME_LOSE" && transaction.category !== "ADMIN_CREDIT" && (
+                            {transaction.category !== "GAME_LOSE" && transaction.category !== "ADMIN_CREDIT" && transaction.category !== "GAME_WIN" && (
                             <div className="space-y-3 rounded-lg border p-4">
 
                                 <p className="font-semibold">
