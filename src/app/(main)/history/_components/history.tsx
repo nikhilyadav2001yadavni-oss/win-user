@@ -6,14 +6,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-
-import {
-  ChevronLeft,
-  ChevronRight,
-  Search,
-} from "lucide-react";
 
 import {
   usePathname,
@@ -59,11 +51,12 @@ type TransactionResponse = {
 };
 
 const tabs = [
+  { id: "all", title: "All", category: "ALL" },
   { id: "deposit", title: "Deposit", category: "DEPOSIT" },
   { id: "withdrawal", title: "Withdrawal", category: "WITHDRAWAL" },
-  { id: "roi-wallet", title: "ROI Wallet", category: "ROI_WALLET" },
+  { id: "roi-wallet", title: "ROI Wallet", category: "ROI_CREDIT" },
   { id: "games", title: "Games", category: "GAME" },
-  { id: "referral", title: "Referral", category: "REFERRAL" },
+  { id: "referral", title: "Referral", category: "REFERRAL_BONUS" },
 ];
 
 export const History = () => {
@@ -71,7 +64,7 @@ export const History = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const activeTab = searchParams.get("tab") || "deposit";
+  const activeTab = searchParams.get("tab") || "all";
   const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
   const searchFromUrl = searchParams.get("search") || "";
 
@@ -87,7 +80,7 @@ export const History = () => {
   const [limit, setLimit] = useState(10);
   const [statusFilter, setStatusFilter] = useState("all");
   const [joinedDateFilter, setJoinedDateFilter] = useState("all");
-
+  const type = tabs.find((tab) => tab.id === activeTab)?.category.toLocaleLowerCase();
   useEffect(() => {
     const timer = setInterval(() => {
       setThrottledSearch(search);
@@ -106,7 +99,7 @@ export const History = () => {
       setLoading(true);
 
       const result = await apiFetch(
-        `/wallet/transactions?page=${page}&limit=${limit}&search=${searchFromUrl}`,
+        `/wallet/transactions?type=${type}&page=${page}&limit=${limit}&search=${searchFromUrl}`,
         {
           method: "GET",
         }
@@ -174,7 +167,7 @@ export const History = () => {
         </TabsList>
         {/* ================= DEPOSIT ================= */}
 
-        <TabsContent value="deposit">
+        <TabsContent value={activeTab}>
             <DataTable data={transactions} loading={loading}
               page={page}
               totalPages={totalPages}

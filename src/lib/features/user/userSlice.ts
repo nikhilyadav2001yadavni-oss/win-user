@@ -55,6 +55,7 @@ const initialState: UserState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
+
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
@@ -65,12 +66,45 @@ const userSlice = createSlice({
       state.user = null;
     },
 
-    setUserLoading: (state, action: PayloadAction<boolean>) => {
+    setUserLoading: (
+      state,
+      action: PayloadAction<boolean>
+    ) => {
       state.isLoading = action.payload;
     },
 
-    setUserError: (state, action: PayloadAction<string | null>) => {
+    setUserError: (
+      state,
+      action: PayloadAction<string | null>
+    ) => {
       state.error = action.payload;
+    },
+
+    updateWalletBalance: (
+      state,
+      action: PayloadAction<{
+        walletType: "roiWallet" | "gamingWallet";
+        balance: number;
+      }>
+    ) => {
+      if (!state.user) return;
+
+      const { walletType, balance } =
+        action.payload;
+
+      if (walletType === "roiWallet") {
+        state.user.wallet.roiWallet = balance;
+      }
+
+      if (walletType === "gamingWallet") {
+        state.user.wallet.gamingWallet = balance;
+      }
+
+      // Recalculate total balance
+      state.user.wallet.totalBalance =
+        state.user.wallet.mainWallet +
+        state.user.wallet.gamingWallet +
+        state.user.wallet.roiWallet;
     },
   },
 });
@@ -80,6 +114,7 @@ export const {
   clearUser,
   setUserLoading,
   setUserError,
+  updateWalletBalance,
 } = userSlice.actions;
 
 export default userSlice.reducer;

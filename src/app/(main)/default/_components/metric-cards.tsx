@@ -4,6 +4,7 @@ import { DollarSign, Trophy, WalletIcon } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAppSelector } from "@/lib/hooks";
 import { QuickActions } from "./quick-actions";
+import { formatCurrency } from "@/lib/utils";
 
 export function MetricCards() {
   const isVisible = useAppSelector(
@@ -12,6 +13,7 @@ export function MetricCards() {
   const user = useAppSelector(
     (state) => state.user.user
   );
+  console.log("user", user);
   return (
     <div className="grid grid-cols-1 gap-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs xl:grid-cols-4 dark:*:data-[slot=card]:bg-card">
       <Card>
@@ -25,9 +27,9 @@ export function MetricCards() {
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="font-medium text-3xl tabular-nums leading-none tracking-tight">{isVisible ? (
-              user?.wallet?.totalBalance
-            ) : '******'}</div>
+            <div className="font-medium text-3xl tabular-nums leading-none tracking-tight">
+              {isVisible ? formatCurrency(user?.wallet?.totalBalance ?? 0) : "******"}
+              </div>
 
           </div>
           <p className="text-muted-foreground text-sm">
@@ -49,7 +51,7 @@ export function MetricCards() {
         <CardContent className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <div className="font-medium text-3xl tabular-nums leading-none tracking-tight">
-              {isVisible ? '$45,678' : '******'}
+              {isVisible ? formatCurrency(user?.wallet?.roiWallet ?? 0) : "******"}
             </div>
           </div>
           <p className="text-muted-foreground text-sm flex items-center gap-1">
@@ -70,7 +72,7 @@ export function MetricCards() {
         <CardContent className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <div className="font-medium text-3xl tabular-nums leading-none tracking-tight">
-              {isVisible ? '$12,345' : '******'}
+              {isVisible ? formatCurrency(user?.wallet?.gamingWallet ?? 0) : "******"}
             </div>
           </div>
           <p className="text-muted-foreground text-sm flex items-center gap-1">

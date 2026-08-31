@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/table";
 
 import { DepositDetails } from "./details";
+import { CheckCircle2, Clock3, XCircle } from "lucide-react";
 export type Transaction = {
   _id: string;
   userId: string;
@@ -37,25 +38,6 @@ type DepositTableProps = {
   data: Transaction[];
   loading: boolean;
 };
-
-function getStatusVariant(status: string) {
-  switch (status) {
-    case "COMPLETED":
-    case "SUCCESS":
-      return "default";
-
-    case "PENDING":
-      return "secondary";
-
-    case "FAILED":
-    case "DUPLICATE_HASH":
-    case "REJECTED":
-      return "destructive";
-
-    default:
-      return "outline";
-  }
-}
 
 function formatDate(date: string) {
   return new Date(date).toLocaleString("en-IN", {
@@ -117,7 +99,43 @@ export const DepositTable = ({
   if (loading) {
     return <TransactionTableSkeleton />;
   }
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case "SUCCESS":
+      case "COMPLETED":
+        return (
+          <Badge className="gap-1 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/10">
+            <CheckCircle2 className="size-3" />
+            {status}
+          </Badge>
+        );
 
+      case "PENDING":
+      case "PROCESSING":
+        return (
+          <Badge className="gap-1 bg-yellow-500/10 text-yellow-600 hover:bg-yellow-500/10">
+            <Clock3 className="size-3" />
+            {status}
+          </Badge>
+        );
+
+      case "FAILED":
+      case "DUPLICATE_HASH":
+        return (
+          <Badge className="gap-1 bg-red-500/10 text-red-600 hover:bg-red-500/10">
+            <XCircle className="size-3" />
+            {status}
+          </Badge>
+        );
+
+      default:
+        return (
+          <Badge variant="secondary">
+            {status}
+          </Badge>
+        );
+    }
+  };
   return (
     <>
       <div className="overflow-hidden rounded-lg border bg-card">
@@ -128,7 +146,7 @@ export const DepositTable = ({
               <TableRow>
                 <TableHead className="h-11 p-3 font-medium">
                   S.No
-                  </TableHead>
+                </TableHead>
                 <TableHead className="h-11 p-3 font-medium">
                   Transaction ID
                 </TableHead>
@@ -163,7 +181,7 @@ export const DepositTable = ({
                     }
                   >
                     <TableCell className="p-3 align-middle">
-                        {index + 1}
+                      {index + 1}
                     </TableCell>
                     <TableCell className="p-3 align-middle">
                       <span className="font-medium">
@@ -185,13 +203,7 @@ export const DepositTable = ({
                     </TableCell>
 
                     <TableCell className="p-3 align-middle">
-                      <Badge
-                        variant={getStatusVariant(
-                          transaction.status
-                        )}
-                      >
-                        {transaction.status}
-                      </Badge>
+                      {getStatusBadge(transaction.status)}
                     </TableCell>
 
                     <TableCell className="whitespace-nowrap p-3 align-middle text-sm text-muted-foreground">

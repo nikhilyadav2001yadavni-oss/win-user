@@ -19,10 +19,12 @@ import { useAppSelector } from "@/lib/hooks";
 import { useDispatch } from "react-redux";
 import { setVisible } from "@/lib/features/loading/visibleSlice";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { WithdrawalModal } from "./withdrawal";
 
 export const QuickActions = () => {
   const [depositOpen, setDepositOpen] = useState(false);
   const [referOpen, setReferOpen] = useState(false);
+  const [withdrawOpen, setWithdrawOpen] = useState(false);
 
   const isVisible = useAppSelector(
     (state) => state.visible.isVisible
@@ -46,9 +48,7 @@ export const QuickActions = () => {
       id: 2,
       label: "Withdraw",
       icon: ArrowBigUp,
-      onClick: () => {
-        // open withdraw dialog
-      },
+      onClick: () => setWithdrawOpen(true),
       disabled: false,
     },
     {
@@ -127,6 +127,8 @@ export const QuickActions = () => {
         open={depositOpen}
         setOpen={setDepositOpen}
       />
+
+      <WithdrawalModal open={withdrawOpen} setOpen={setWithdrawOpen} />
 
       <ReferEarn
         open={referOpen}

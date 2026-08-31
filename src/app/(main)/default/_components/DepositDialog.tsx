@@ -21,6 +21,8 @@ import { Label } from "@/components/ui/label";
 import { SelectCurrency } from "./select-currency";
 import { apiFetch } from "@/lib/api";
 import { useAppSelector } from "@/lib/hooks";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
+import { toast } from "sonner";
 
 type DepositStep = "amount" | "deposit";
 
@@ -158,12 +160,15 @@ export function DepositDialog({
         result
       );
 
+      toast.success(result.message);
+
       setOpen(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "Deposit submission failed:",
         error
       );
+      toast.error(error?.message ?? "Failed to submit deposit request.");
     } finally {
       setIsSubmitting(false);
     }
@@ -200,6 +205,7 @@ export function DepositDialog({
                 <SelectCurrency
                   value={currency}
                   onValueChange={setCurrency}
+                  type="deposit"
                 />
               </div>
 
@@ -284,7 +290,7 @@ export function DepositDialog({
 
               {/* Continue */}
               <Button
-                className="w-full rounded-lg text-sm"
+                className="h-12 w-full rounded-lg text-base font-semibold cursor-pointer"
                 disabled={!isValidAmount}
                 onClick={handleContinue}
               >
@@ -326,7 +332,7 @@ export function DepositDialog({
               </div>
             </DialogHeader>
 
-            <div className="max-h-[75vh] space-y-3 overflow-y-auto px-6 pb-5">
+            <div className="max-h-[75vh] space-y-3 overflow-y-auto px-6 pb-5 no-scrollbar">
 
               {/* Deposit Amount */}
               <div className="rounded-lg border border-emerald-500/70 bg-emerald-50 px-5 py-3 text-center dark:bg-emerald-950/30">
@@ -384,24 +390,24 @@ export function DepositDialog({
                   Deposit Address
                 </h3>
 
-                <div className="flex items-center gap-3 rounded-lg border bg-muted/20 p-2">
-                  <p className="min-w-0 flex-1 break-all text-xs">
-                    {depositAddress}
-                  </p>
+                <InputGroup>
+                  <InputGroupInput placeholder="0x..." value={depositAddress} type="text" readOnly />
+                  <InputGroupAddon align="inline-end">
+                    <InputGroupButton
+                      aria-label="Copy"
+                      title="Copy"
+                      size="icon-xs"
+                      onClick={handleCopy}
+                    >
+                      {copied ? (
+                        <Check className="size-5 text-emerald-500" />
+                      ) : (
+                        <Copy className="size-5 cursor-pointer" />
+                      )}
+                    </InputGroupButton>
+                  </InputGroupAddon>
+                </InputGroup>
 
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={handleCopy}
-                    className="shrink-0"
-                  >
-                    {copied ? (
-                      <Check className="size-5 text-emerald-500" />
-                    ) : (
-                      <Copy className="size-5" />
-                    )}
-                  </Button>
-                </div>
 
                 <p className="text-xs text-muted-foreground">
                   Send only {currency} ({network}) to this
@@ -472,7 +478,7 @@ export function DepositDialog({
 
               {/* Submit */}
               <Button
-                className="w-full rounded-lg"
+                className="h-12 w-full rounded-lg text-base font-semibold cursor-pointer"
                 disabled={
                   !walletAddress ||
                   !transactionHash ||
