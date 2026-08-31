@@ -67,6 +67,8 @@ export function DataTable({
         <DepositTable
             loading={loading}
             data={data}
+            page={page}
+            limit={limit}
           />
           <Pagination
           page={page}

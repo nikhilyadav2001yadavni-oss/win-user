@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Check, CheckCircle2, Clock3, Copy, XCircle } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
+import { categoryToTitle } from "@/lib/utils";
 
 type Transaction = {
     _id: string;
@@ -231,7 +232,7 @@ export const DepositDetails = ({
                                 <DetailRow
                                     label="Type"
                                     value={
-                                        transaction.category
+                                        categoryToTitle(transaction.category)
                                     }
                                 />
 
@@ -267,6 +268,7 @@ export const DepositDetails = ({
                             </div>
 
                             {/* Addresses */}
+                            {transaction.category !== "GAME_LOSE" && transaction.category !== "ADMIN_CREDIT" && (
                             <div className="space-y-3 rounded-lg border p-4">
 
                                 <p className="font-semibold">
@@ -321,6 +323,7 @@ export const DepositDetails = ({
                                 />
 
                             </div>
+                            )}
 
                             {/* Metadata / Notes */}
                             {transaction.metadata && (
@@ -364,12 +367,12 @@ export const DepositDetails = ({
                                     )}
                                 />
 
-                                <DetailRow
+                                {/* <DetailRow
                                     label="Updated At"
                                     value={formatDate(
                                         transaction.updatedAt
                                     )}
-                                />
+                                /> */}
 
                             </div>
 

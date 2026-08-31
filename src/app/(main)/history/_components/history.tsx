@@ -136,7 +136,7 @@ export const History = () => {
     const params = new URLSearchParams(
       searchParams.toString()
     );
-
+    setPage(1);
     params.set("tab", value);
     params.set("page", "1");
 

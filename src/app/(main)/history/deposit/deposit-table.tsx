@@ -14,6 +14,8 @@ import {
 
 import { DepositDetails } from "./details";
 import { CheckCircle2, Clock3, XCircle } from "lucide-react";
+import { categoryToTitle } from "@/lib/utils";
+import { AmountCurrency } from "../_components/amount-currency";
 export type Transaction = {
   _id: string;
   userId: string;
@@ -37,6 +39,8 @@ export type Transaction = {
 type DepositTableProps = {
   data: Transaction[];
   loading: boolean;
+  page: number;
+  limit: number;
 };
 
 function formatDate(date: string) {
@@ -92,10 +96,12 @@ function TransactionTableSkeleton() {
 export const DepositTable = ({
   data,
   loading,
+  page,
+  limit,
 }: DepositTableProps) => {
   const [selectedTransaction, setSelectedTransaction] =
     useState<Transaction | null>(null);
-
+  const skip = (page - 1) * limit;
   if (loading) {
     return <TransactionTableSkeleton />;
   }
@@ -181,7 +187,7 @@ export const DepositTable = ({
                     }
                   >
                     <TableCell className="p-3 align-middle">
-                      {index + 1}
+                      {skip + index + 1}
                     </TableCell>
                     <TableCell className="p-3 align-middle">
                       <span className="font-medium">
@@ -191,15 +197,17 @@ export const DepositTable = ({
 
                     <TableCell className="p-3 align-middle">
                       <span className="capitalize">
-                        {transaction.category.toLowerCase()}
+                        {categoryToTitle(transaction.category)}
                       </span>
                     </TableCell>
 
                     <TableCell className="p-3 align-middle">
-                      <span className={`font-medium ${transaction.status === "FAILED" ? "text-destructive" : "text-green-700"}`}>
-                        +{transaction.amount}{" "}
-                        {transaction.currency}
-                      </span>
+                      {AmountCurrency(
+    transaction.category,
+    transaction.amount,
+    transaction.status,
+    transaction.currency
+  )}
                     </TableCell>
 
                     <TableCell className="p-3 align-middle">
