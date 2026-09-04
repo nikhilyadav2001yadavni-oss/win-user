@@ -1,7 +1,6 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { profile } from "./_components/profile-data";
 import { ProfileDocuments } from "./_components/profile-documents";
 import { ProfileHeader } from "./_components/profile-header";
 import { ChangePassword } from "./_components/change-password";
@@ -20,7 +19,6 @@ export default function Page() {
           >
             <TabsTrigger value="personal">Overview</TabsTrigger>
             <TabsTrigger value="security">Security</TabsTrigger>
-            <TabsTrigger value="documents">Help & support</TabsTrigger>
           </TabsList>
         </div>
 
@@ -34,11 +32,6 @@ export default function Page() {
             <ChangePassword />
           </TabsContent>
 
-
-
-          <TabsContent className="py-4" value="documents">
-            <ProfileDocuments documents={profile.documents} />
-          </TabsContent>
         </div>
       </Tabs>
     </div>

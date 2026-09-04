@@ -85,28 +85,28 @@ export function ReferEarn({
         }
     };
     const handleEmailShare = () => {
-    if (!referralLink) return;
+        if (!referralLink) return;
 
-    const subject = encodeURIComponent(
-        "Join me and earn rewards!"
-    );
+        const subject = encodeURIComponent(
+            "Join me and earn rewards!"
+        );
 
-    const body = encodeURIComponent(
-        shareMessage
-    );
+        const body = encodeURIComponent(
+            shareMessage
+        );
 
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
-};
-const handleSmsShare = () => {
-    if (!referralLink) return;
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    };
+    const handleSmsShare = () => {
+        if (!referralLink) return;
 
-    const body = encodeURIComponent(
-        shareMessage
-    );
+        const body = encodeURIComponent(
+            shareMessage
+        );
 
-    // iOS uses &body, Android commonly accepts ?body
-    window.location.href = `sms:?body=${body}`;
-};
+        // iOS uses &body, Android commonly accepts ?body
+        window.location.href = `sms:?body=${body}`;
+    };
 
     /*
      * Native share
@@ -310,40 +310,40 @@ const handleSmsShare = () => {
 
                             <CardContent className="grid grid-cols-3 gap-3 text-center text-xs">
 
-                                
+
                                 {/* Email */}
-        <div className="flex flex-col items-center gap-1">
-            <Button
-                type="button"
-                size="icon-lg"
-                onClick={handleEmailShare}
-                disabled={!referralLink}
-                className="cursor-pointer"
-            >
-                <Mail className="size-5" />
-            </Button>
+                                <div className="flex flex-col items-center gap-1">
+                                    <Button
+                                        type="button"
+                                        size="icon-lg"
+                                        onClick={handleEmailShare}
+                                        disabled={!referralLink}
+                                        className="cursor-pointer"
+                                    >
+                                        <Mail className="size-5" />
+                                    </Button>
 
-            <span className="text-muted-foreground">
-                Email
-            </span>
-        </div>
+                                    <span className="text-muted-foreground">
+                                        Email
+                                    </span>
+                                </div>
 
-        {/* SMS */}
-        <div className="flex flex-col items-center gap-1">
-            <Button
-                type="button"
-                size="icon-lg"
-                onClick={handleSmsShare}
-                disabled={!referralLink}
-                className="cursor-pointer"
-            >
-                <MessageSquare className="size-5" />
-            </Button>
+                                {/* SMS */}
+                                <div className="flex flex-col items-center gap-1">
+                                    <Button
+                                        type="button"
+                                        size="icon-lg"
+                                        onClick={handleSmsShare}
+                                        disabled={!referralLink}
+                                        className="cursor-pointer"
+                                    >
+                                        <MessageSquare className="size-5" />
+                                    </Button>
 
-            <span className="text-muted-foreground">
-                SMS
-            </span>
-        </div>
+                                    <span className="text-muted-foreground">
+                                        SMS
+                                    </span>
+                                </div>
 
                                 {/* WhatsApp */}
                                 <div className="flex flex-col items-center gap-1">
@@ -465,6 +465,24 @@ const handleSmsShare = () => {
                                         eligible referrals.
                                     </li>
                                 </ul>
+                            </CardContent>
+                        </Card>
+
+                        {/* How it works */}
+                        <Card
+                            size="sm"
+                            className="mx-auto w-full max-w-xs"
+                        >
+                            <CardHeader>
+                                <CardTitle>
+                                    Earn up to $50
+                                </CardTitle>
+                            </CardHeader>
+
+                            <CardContent>
+                                <p className="text-xs">
+                                    For each friend who sign up and makes their first deposit.
+                                </p>
                             </CardContent>
                         </Card>
                     </div>

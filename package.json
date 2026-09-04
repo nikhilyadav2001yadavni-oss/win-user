@@ -51,6 +51,7 @@
     "recharts": "^3.8.0",
     "shadcn": "^4.19.0",
     "simple-icons": "^16.28.0",
+    "socket.io-client": "^4.8.3",
     "sonner": "^2.0.8",
     "tailwind-merge": "^3.6.0",
     "temporal-polyfill": "^1.0.4",

@@ -1,19 +1,11 @@
 "use client";
-import { BadgeCheck, Ellipsis, Eye, Mail, Pencil, UserRoundX } from "lucide-react";
+import { BadgeCheck, Pencil } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-import type { ProfileRecord } from "./profile-data";
+
 import { useAppSelector } from "@/lib/hooks";
 import { EditProfileDialog } from "./edit-profile";
 import { useState } from "react";
@@ -38,7 +30,7 @@ export function ProfileHeader() {
               cy="50"
               pathLength="100"
               r="46"
-              strokeDasharray="92 100"
+              strokeDasharray="100 100"
               strokeLinecap="round"
               strokeWidth="2.5"
             />

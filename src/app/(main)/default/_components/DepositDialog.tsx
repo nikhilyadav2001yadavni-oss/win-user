@@ -46,7 +46,7 @@ export function DepositDialog({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const currencies = useAppSelector(
-    (state) => state.currency.currencies
+    (state) => state?.currency.currencies
   );
 
   const selectedCurrency = currencies.find(

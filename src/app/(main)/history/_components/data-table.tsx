@@ -5,8 +5,8 @@ import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DepositTable } from "../deposit/deposit-table";
-import { Pagination } from "./pagination";
 import { Filters } from "./fiters";
+import { Pagination } from "@/components/pagination";
 
 type DataTableProps = {
   data: any;

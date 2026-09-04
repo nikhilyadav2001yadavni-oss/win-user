@@ -1,6 +1,6 @@
 "use client";
 
-import { BadgeCheck, Bell, Check, CreditCard, LogOut } from "lucide-react";
+import { BadgeCheck, Check, DicesIcon, HelpCircle, LogOut } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -59,13 +59,13 @@ export function AccountSwitcher() {
               <BadgeCheck />
               Account
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <CreditCard />
-              Billing
+            <DropdownMenuItem onClick={() => router.push("/history")}>
+              <DicesIcon />
+              History
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Bell />
-              Notifications
+            <DropdownMenuItem onClick={() => router.push("/support")}>
+              <HelpCircle />
+              Support
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
