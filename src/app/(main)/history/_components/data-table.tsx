@@ -45,7 +45,9 @@ export function DataTable({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="leading-none">Transactions History</CardTitle>
+        <CardTitle className="leading-none">
+          {type == "home" ? "Recent transactions" : "Transaction history"}
+        </CardTitle>
         <CardDescription>Recent transactions with status, amount, and date.</CardDescription>
         {type !== "home" && (
         <CardAction>
